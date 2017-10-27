@@ -34,13 +34,21 @@ var ORCID = {
         .toUpperCase();
   },
 
-  toUriWithProtocol: function(input, protocol) {
-    var proto = (protocol || 'https');
-    return proto + '://' + toUriWithoutProtocol(input);
+  toUriWithProtocol: function(input, secure) {
+    if (typeof secure != 'boolean' && typeof secure != 'undefined') {
+      throw new TypeError('secure flag must be a boolean, or omitted.');
+    }
+    var proto;
+    if (typeof secure == 'undefined' || secure) {
+      proto = 'https';
+    } else {
+      proto = 'http';
+    }
+    return proto + '://' + ORCID.toUriWithoutProtocol(input);
   },
 
   toUriWithoutProtocol: function(input) {
-    return 'orcid.org/' + toDashedFormat(input);
+    return 'orcid.org/' + ORCID.toDashFormat(input);
   },
 
   isValid: function(input) {
