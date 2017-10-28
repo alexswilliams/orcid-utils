@@ -63,14 +63,24 @@ to the `test` script.
 
 <body>
 <input type="text" id="orcidTextInput">
-<input type="button" onClick="validateAndLog()">
+<input type="button" onClick="validateAndLog();">
 
-<script>
-  var validateAndLog = function validateAndLog() {
-    var input = document.getElementById('orcidTextInput');
-    
-  };
-</script>
+    <script>
+      var validateAndLog = function validateAndLog() {
+        var orcidNumber = document.getElementById('orcidTextInput').value;
+
+        if (ORCID.isValid(orcidNumber)) {
+          console.log(ORCID.toDashFormat(orcidNumber));
+          // 0000-0000-0000-0001
+          
+          // All the other examples from above work here too!
+        } else {
+          console.log('Not Valid');
+        }
+
+      };
+    </script>
+
 </body>
 </html>
 ```
