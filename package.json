@@ -1,9 +1,11 @@
 {
   "name": "orcid-utils",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Validates and formats ORCID numbers",
-  "main": "src/orcid.js",
+  "main": "lib/orcid.min.js",
   "scripts": {
+    "compile": "babel src/orcid.js -o lib/orcid.js",
+    "minify": "minify lib/orcid.js -o lib/orcid.min.js",
     "test": "nodeunit test"
   },
   "repository": {
@@ -21,6 +23,9 @@
   "license": "MIT",
   "bugs": "https://github.com/alexswilliams/orcid-utils/issues",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-minify": "^0.2.0",
+    "babel-preset-env": "^1.6.1",
     "nodeunit": "^0.11.2"
   }
 }

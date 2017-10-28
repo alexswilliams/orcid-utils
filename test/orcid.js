@@ -1,6 +1,6 @@
 "use strict";
 
-const ORCID = require('../src/orcid');
+const ORCID = require('../lib/orcid');
 
 exports.toDashFormat = {
   non_string_inputs_throw_TypeError: function(test) {

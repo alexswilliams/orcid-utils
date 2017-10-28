@@ -58,7 +58,7 @@ to the `test` script.
 ```html
 <html>
 <head>
-<script src="src/orcid.js"></script>
+<script src="lib/orcid.min.js"></script>
 </head>
 
 <body>
