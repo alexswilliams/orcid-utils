@@ -3,7 +3,7 @@ BUILD_DEPS = Makefile package-lock.json package.json
 .PHONY: all test clean
 .DEFAULT: all
 
-all: test lib/orcid.min.js $(BUILD_DEPS)
+all: lib/orcid.min.js test $(BUILD_DEPS)
 
 lib/orcid.js: src/orcid.js $(BUILD_DEPS)
 	npm run compile
