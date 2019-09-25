@@ -48,7 +48,7 @@ if (ORCID.isValid(orcidNumber)) {
 
 ## Node Testing
 
-Testing is performed using the `nodetest` package, and is aliased
+Testing is performed using the `jest` package, and is aliased
 to the `test` script.
 
 `npm test`
