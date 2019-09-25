@@ -1,6 +1,6 @@
 "use strict";
 
-import { toDashFormat, toNoDashFormat, toUriWithoutProtocol, toUriWithProtocol, isValid } from '../lib/orcid';
+import { toDashFormat, toNoDashFormat, toUriWithoutProtocol, toUriWithProtocol, isValid, validate } from '../lib/orcid';
 
 const nonStringInputs = [
   10,
@@ -218,7 +218,6 @@ test("isValid: Non-string input throws TypeError", () => {
   })
 })
 
-
 test("isValid: Known-good ORCIDs are valid", () => {
   ['0000-0000-0000-0001', '0001-2345-6789-012X', '0000-1111-2222-3336', '9999-9999-9999-9994'].forEach(value => {
     expect(isValid(value)).toBe(true)
@@ -238,7 +237,6 @@ test("isValid: Any accepted format can be validated", () => {
   })
 })
 
-
 test("isValid: Strings that are not an ORCID are not valid", () => {
   invalidOrcidStrings.forEach(value => {
     expect(isValid(value)).toBe(false)
@@ -257,4 +255,26 @@ test("isValid: ORCID validity is not affected by letter case", () => {
   invalidOrcidStrings.forEach(value => {
     expect(isValid(value.toUpperCase())).toBe(isValid(value.toLowerCase()))
   })
+})
+
+
+// validate
+
+test("validate: Non-string input throws TypeError", () => {
+  nonStringInputs.forEach(value => {
+    expect(() => { validate(value) }).toThrow(TypeError)
+  })
+})
+
+test("validate: Known-good ORCIDs pass through without throwing", () => {
+  ['0000-0000-0000-0001', '0001-2345-6789-012X', '0000-1111-2222-3336', '9999-9999-9999-9994'].forEach(value => {
+    expect(() => { validate(value) }).not.toThrow()
+  })
+})
+
+test("validate: Known-bad ORCIDs throw Error", () => {
+  ['0000-0000-0000-0003', '0001-2345-6789-0122', '0000-1111-2222-3331', '9999-9999-9999-9990'].forEach(value => {
+    expect(() => { validate(value) }).toThrow(Error)
+  })
+
 })

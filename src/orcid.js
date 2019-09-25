@@ -71,11 +71,18 @@ const ORCID = {
     const result = (12 - total % 11) % 11;
     const checkDigit = result === 10 ? 'X' : result + '';
     return inputNoDash[15] === checkDigit;
+  },
+
+  validate: function(input) {
+    if (!ORCID.isValid(input)) {
+      throw new Error('Invalid ORCID')
+    }
   }
 };
 
 if (typeof exports !== 'undefined') {
   exports.isValid = ORCID.isValid;
+  exports.validate = ORCID.validate;
   exports.inAcceptedFormat = ORCID.inAcceptedFormat;
   exports.toDashFormat = ORCID.toDashFormat;
   exports.toNoDashFormat = ORCID.toNoDashFormat;
