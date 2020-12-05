@@ -1,6 +1,11 @@
 'use strict';
 
 const ORCID = {
+  /**
+   * Checks that a string is a valid ORCID of any format
+   * @param {string} input String to test format of
+   * @returns {boolean}
+   */
   inAcceptedFormat: function(input) {
     if (typeof input !== 'string') {
       throw new TypeError('Input type must be a string');
@@ -12,6 +17,11 @@ const ORCID = {
     );
   },
 
+  /**
+   * 
+   * @param {string} input 
+   * @returns {string}
+   */
   toDashFormat: function(input) {
     if (!ORCID.inAcceptedFormat(input)) {
       throw new Error('ORCID not in acceptable format.');
@@ -24,6 +34,11 @@ const ORCID = {
         .toUpperCase();
   },
 
+  /**
+   * 
+   * @param {string} input 
+   * @returns {string}
+   */
   toNoDashFormat: function(input) {
     if (!ORCID.inAcceptedFormat(input)) {
       throw new Error('ORCID not in acceptable format.');
@@ -36,23 +51,34 @@ const ORCID = {
         .toUpperCase();
   },
 
+  /**
+   * 
+   * @param {string} input 
+   * @param {boolean=} secure 
+   * @returns {string}
+   */
   toUriWithProtocol: function(input, secure) {
     if (typeof secure !== 'boolean' && typeof secure !== 'undefined') {
       throw new TypeError('secure flag must be a boolean, or omitted.');
     }
-    let proto;
-    if (typeof secure === 'undefined' || secure) {
-      proto = 'https';
-    } else {
-      proto = 'http';
-    }
+    const proto = {true:'https', false:'http'}[typeof secure === 'undefined' || secure];
     return proto + '://' + ORCID.toUriWithoutProtocol(input);
   },
 
+  /**
+   * 
+   * @param {string} input 
+   * @returns {string}
+   */
   toUriWithoutProtocol: function(input) {
     return 'orcid.org/' + ORCID.toDashFormat(input);
   },
 
+  /**
+   * 
+   * @param {string} input 
+   * @returns {boolean}
+   */
   isValid: function(input) {
     if (typeof input !== 'string') {
       throw new TypeError('Input type must be a string');
@@ -73,6 +99,11 @@ const ORCID = {
     return inputNoDash[15] === checkDigit;
   },
 
+  /**
+   * 
+   * @param {string} input 
+   * @returns {undefined}
+   */
   validate: function(input) {
     if (!ORCID.isValid(input)) {
       throw new Error('Invalid ORCID')

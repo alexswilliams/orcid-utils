@@ -1,6 +1,6 @@
 "use strict";
 
-import { toDashFormat, toNoDashFormat, toUriWithoutProtocol, toUriWithProtocol, isValid, validate } from '../lib/orcid';
+const { toDashFormat, toNoDashFormat, toUriWithoutProtocol, toUriWithProtocol, isValid, validate } = require('../lib/orcid.min.js');
 
 const nonStringInputs = [
   10,

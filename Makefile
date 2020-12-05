@@ -8,7 +8,7 @@ all: lib/orcid.min.js test $(BUILD_DEPS)
 lib/orcid.js: src/orcid.js $(BUILD_DEPS)
 	npm run compile
 
-lib/orcid.min.js: lib/orcid.js $(BUILD_DEPS)
+lib/orcid.min.js lib/orcid.min.js.map: lib/orcid.js $(BUILD_DEPS)
 	npm run minify
 
 test: src/orcid.js $(BUILD_DEPS)
