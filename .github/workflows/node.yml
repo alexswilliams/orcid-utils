@@ -24,6 +24,13 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+
     - run: npm ci
     - run: make -B clean lib/orcid.min.js
     - run: make test
+    
+    # Don't allow the check to pass if the minified js has changed
+    # compared to what's committed - indicated manual remediation
+    # required, or possibly a new npm release.
+    - run: |
+        [ $(git diff --name-only lib/orcid.min.js | wc -l) -eq 0 ]
