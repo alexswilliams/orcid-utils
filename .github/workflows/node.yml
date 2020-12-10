@@ -25,5 +25,5 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
-    - run: make lib/orcid.min.js
+    - run: make -B clean lib/orcid.min.js
     - run: make test
