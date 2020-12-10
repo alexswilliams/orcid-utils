@@ -1,7 +1,7 @@
 # ORCID Utils
 
 
-[![Build Status](https://travis-ci.org/alexswilliams/orcid-utils.svg?branch=master)](https://travis-ci.org/alexswilliams/orcid-utils)
+![Node.js CI](https://github.com/alexswilliams/orcid-utils/workflows/Node.js%20CI/badge.svg)
 
 Library to manipulate [ORCID](https://orcid.org/) identifiers.
 Allows validation of identifiers based on their check-digit,
