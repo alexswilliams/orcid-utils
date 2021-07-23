@@ -4,10 +4,10 @@
   "description": "Validates and formats ORCID numbers",
   "main": "lib/orcid.min.js",
   "scripts": {
-    "compile": "cp src/orcid.js lib/orcid.js",
-    "minify": "esbuild lib/orcid.js --minify --sourcemap --format=cjs --outfile=lib/orcid.min.js --target=chrome90,edge91,firefox89,ios14.0,safari14,node12",
+    "build": "npx tsc src/orcid.ts --declaration --declarationMap --outDir lib",
+    "minify": "esbuild src/orcid.ts --minify --sourcemap --format=cjs --outfile=lib/orcid.min.js --target=chrome90,edge91,firefox89,ios14.0,safari14,node12",
     "test": "jest",
-    "lint": "eslint --report-unused-disable-directives src/*.js test/*.js"
+    "lint": "eslint --report-unused-disable-directives src/*.ts test/*.js"
   },
   "repository": {
     "type": "git",
@@ -28,11 +28,15 @@
   "bugs": "https://github.com/alexswilliams/orcid-utils/issues",
   "devDependencies": {
     "@types/jest": "^26.0.24",
+    "@typescript-eslint/eslint-plugin": "^4.28.4",
+    "@typescript-eslint/parser": "^4.28.4",
     "esbuild": "^0.12.15",
     "eslint": "^7.31.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
-    "jest": "^27.0.1",
-    "prettier": "^2.3.2"
+    "jest": "^27.0.6",
+    "prettier": "^2.3.2",
+    "ts-node": "^10.1.0",
+    "typescript": "^4.3.5"
   }
 }

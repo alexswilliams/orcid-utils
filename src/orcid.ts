@@ -5,7 +5,7 @@
  * @param {string} input String to test format of
  * @returns {boolean}
  */
-function inAcceptedFormat(input) {
+function inAcceptedFormat(input: string): boolean {
   if (typeof input !== 'string') throw TypeError('Input must be string')
   return /^((https?:\/\/)?orcid\.org\/)?([0-9]{4}-?){3}[0-9]{3}[0-9X]$/i.test(input)
 }
@@ -15,7 +15,7 @@ function inAcceptedFormat(input) {
  * @param {string} input Any valid ORCID
  * @returns {string}
  */
-function toDashFormat(input) {
+function toDashFormat(input: string): string {
   const noDash = toNoDashFormat(input)
   return [0, 4, 8, 12].map(it => noDash.slice(it, it + 4)).join('-')
 }
@@ -25,7 +25,7 @@ function toDashFormat(input) {
  * @param {string} input Any valid ORCID
  * @returns {string}
  */
-function toNoDashFormatWithoutValidation(input) {
+function toNoDashFormatWithoutValidation(input: string): string {
   return input.replace(/-/g, '').slice(-16).toUpperCase()
 }
 
@@ -34,7 +34,7 @@ function toNoDashFormatWithoutValidation(input) {
  * @param {string} input Any valid ORCID
  * @returns {string}
  */
-function toNoDashFormat(input) {
+function toNoDashFormat(input: string): string {
   validate(input)
   return toNoDashFormatWithoutValidation(input)
 }
@@ -45,9 +45,8 @@ function toNoDashFormat(input) {
  * @param {boolean=} secure true (default): https, false: http
  * @returns {string}
  */
-function toUriWithProtocol(input, secure) {
-  const proto = { true: 'https', false: 'http' }[secure === undefined || !!secure]
-  return proto + '://' + toUriWithoutProtocol(input)
+function toUriWithProtocol(input: string, secure?: boolean): string {
+  return (secure === undefined || !!secure ? 'https' : 'http') + '://' + toUriWithoutProtocol(input)
 }
 
 /**
@@ -55,7 +54,7 @@ function toUriWithProtocol(input, secure) {
  * @param {string} input Any valid ORCID
  * @returns {string}
  */
-function toUriWithoutProtocol(input) {
+function toUriWithoutProtocol(input: string): string {
   return 'orcid.org/' + toDashFormat(input)
 }
 
@@ -64,7 +63,7 @@ function toUriWithoutProtocol(input) {
  * @param {string} input Any string to test
  * @returns {boolean}
  */
-function isValid(input) {
+function isValid(input: string): boolean {
   if (!inAcceptedFormat(input)) return false
   const inputNoDash = toNoDashFormatWithoutValidation(input)
 
@@ -81,7 +80,7 @@ function isValid(input) {
  * @param {string} input
  * @returns {void}
  */
-function validate(input) {
+function validate(input: string): void {
   if (!isValid(input)) throw Error('Invalid ORCID')
 }
 
@@ -95,4 +94,4 @@ const ORCID = {
   toUriWithoutProtocol,
 }
 if (typeof exports !== 'undefined') Object.assign(exports, ORCID)
-if (typeof window !== 'undefined') window['ORCID'] = ORCID
+if (typeof window !== 'undefined') Object.assign(window, { ORCID })

@@ -2,6 +2,7 @@
 
 - Possible breaking change: non-boolean flags will now be coerced rathern than rejected outright
 - Switched to minifying with esbuild
+- Include typescript type definitions
 - Now targeting, as minimum supported versions:
 
   - Chrome 90
@@ -12,8 +13,9 @@
   - Node 12
 
 - Rewrote code for size optimisation
-- Smaller bundle size (1.81 KB -> 914 B)
+- Smaller bundle size (1.81 KB -> 917 B)
 - Security updates to dev dependencies
+- Enforce linting rules
 
 ## 1.0.5 - 2020-12-10
 
