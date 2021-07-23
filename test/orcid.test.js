@@ -1,6 +1,13 @@
-"use strict";
+'use strict'
 
-const { toDashFormat, toNoDashFormat, toUriWithoutProtocol, toUriWithProtocol, isValid, validate } = require('../lib/orcid.min.js');
+const {
+  toDashFormat,
+  toNoDashFormat,
+  toUriWithoutProtocol,
+  toUriWithProtocol,
+  isValid,
+  validate,
+} = require('../lib/orcid.min.js')
 
 const nonStringInputs = [
   10,
@@ -12,10 +19,10 @@ const nonStringInputs = [
   null,
   undefined,
   new Error(),
-  function () { },
-  () => { },
+  function () {},
+  () => {},
   Symbol(),
-  /./
+  /./,
 ]
 
 const invalidOrcidStrings = [
@@ -31,7 +38,9 @@ const invalidOrcidStrings = [
   'orcid.com/0000-1111-2222-3336',
   'orcid.org://https/0000-1111-2222-3336',
   'ftp://orcid.org/0000-1111-2222-3336',
-  'https:\\orcid.org/0000-1111-2222-3336'
+  'https:\\orcid.org/0000-1111-2222-3336',
+  'https://0000111122223336',
+  'https:///0000111122223336',
 ]
 
 const validOrcidStrings = [
@@ -42,7 +51,7 @@ const validOrcidStrings = [
   'https://orcid.org/0000-1111-2222-3336',
   'https://orcid.org/0000111122223336',
   'http://orcid.org/0000-1111-2222-3336',
-  'http://orcid.org/0000111122223336'
+  'http://orcid.org/0000111122223336',
 ]
 
 const validOrcidStringsWithXAsChecksum = [
@@ -61,194 +70,217 @@ const validOrcidStringsWithXAsChecksum = [
   'http://orcid.org/0001-2345-6789-012x',
   'http://orcid.org/0001-2345-6789-012X',
   'http://orcid.org/000123456789012x',
-  'http://orcid.org/000123456789012X'
+  'http://orcid.org/000123456789012X',
 ]
 
+test('methods are exported directly on the module', () => {
+  typeof require('../lib/orcid.min.js').inAcceptedFormat === 'function'
+  typeof require('../lib/orcid.min.js').isValid === 'function'
+  typeof require('../lib/orcid.min.js').toDashFormat === 'function'
+  typeof require('../lib/orcid.min.js').toNoDashFormat === 'function'
+  typeof require('../lib/orcid.min.js').toUriWithProtocol === 'function'
+  typeof require('../lib/orcid.min.js').toUriWithoutProtocol === 'function'
+  typeof require('../lib/orcid.min.js').validate === 'function'
+})
 
 // toDashFormat
 
-test("toDashFormat: Non-string inputs throw TypeError", () => {
+test('toDashFormat: Non-string inputs throw TypeError', () => {
   nonStringInputs.forEach(value => {
-    expect(() => { toDashFormat(value) }).toThrow(TypeError)
+    expect(() => {
+      toDashFormat(value)
+    }).toThrow(TypeError)
   })
 })
 
-test("toDashFormat: Valid ORCIDs are converted to standalone dashed format", () => {
+test('toDashFormat: Valid ORCIDs are converted to standalone dashed format', () => {
   const expected = '0000-1111-2222-3336'
   validOrcidStrings.forEach(value => {
     expect(toDashFormat(value)).toBe(expected)
   })
 })
 
-test("toDashFormat: X is made uppercase", () => {
+test('toDashFormat: X is made uppercase', () => {
   const expected = '0001-2345-6789-012X'
   validOrcidStringsWithXAsChecksum.forEach(value => {
     expect(toDashFormat(value)).toBe(expected)
   })
 })
 
-test("toDashFormat: Invalid ORCIDs throw", () => {
+test('toDashFormat: Invalid ORCIDs throw', () => {
   invalidOrcidStrings.forEach(value => {
-    expect(() => { toDashFormat(value) }).toThrow()
+    expect(() => {
+      toDashFormat(value)
+    }).toThrow()
   })
 })
-
 
 // toNoDashFormat
 
-test("toNoDashFormat: Non-string inputs throw TypeError", () => {
+test('toNoDashFormat: Non-string inputs throw TypeError', () => {
   nonStringInputs.forEach(value => {
-    expect(() => { toNoDashFormat(value) }).toThrow(TypeError)
+    expect(() => {
+      toNoDashFormat(value)
+    }).toThrow(TypeError)
   })
 })
 
-test("toNoDashFormat: Valid ORCIDs are converted to standalone non-dashed format", () => {
+test('toNoDashFormat: Valid ORCIDs are converted to standalone non-dashed format', () => {
   const expected = '0000111122223336'
   validOrcidStrings.forEach(value => {
     expect(toNoDashFormat(value)).toBe(expected)
   })
 })
 
-test("toNoDashFormat: X is made uppercase", () => {
+test('toNoDashFormat: X is made uppercase', () => {
   const expected = '000123456789012X'
   validOrcidStringsWithXAsChecksum.forEach(value => {
     expect(toNoDashFormat(value)).toBe(expected)
   })
 })
 
-test("toNoDashFormat: Invalid ORCIDs throw", () => {
+test('toNoDashFormat: Invalid ORCIDs throw', () => {
   invalidOrcidStrings.forEach(value => {
-    expect(() => { toNoDashFormat(value) }).toThrow()
+    expect(() => {
+      toNoDashFormat(value)
+    }).toThrow()
   })
 })
-
 
 // toUriWithoutProtocol
 
-test("toUriWithoutProtocol: Non-string inputs throw TypeError", () => {
+test('toUriWithoutProtocol: Non-string inputs throw TypeError', () => {
   nonStringInputs.forEach(value => {
-    expect(() => { toUriWithoutProtocol(value) }).toThrow(TypeError)
+    expect(() => {
+      toUriWithoutProtocol(value)
+    }).toThrow(TypeError)
   })
 })
 
-test("toUriWithoutProtocol: Valid ORCIDs are converted to uri-without-protocol format", () => {
+test('toUriWithoutProtocol: Valid ORCIDs are converted to uri-without-protocol format', () => {
   const expected = 'orcid.org/0000-1111-2222-3336'
   validOrcidStrings.forEach(value => {
     expect(toUriWithoutProtocol(value)).toBe(expected)
   })
 })
 
-test("toUriWithoutProtocol: X is made uppercase", () => {
+test('toUriWithoutProtocol: X is made uppercase', () => {
   const expected = 'orcid.org/0001-2345-6789-012X'
   validOrcidStringsWithXAsChecksum.forEach(value => {
     expect(toUriWithoutProtocol(value)).toBe(expected)
   })
 })
 
-test("toUriWithoutProtocol: Invalid ORCIDs throw", () => {
+test('toUriWithoutProtocol: Invalid ORCIDs throw', () => {
   invalidOrcidStrings.forEach(value => {
-    expect(() => { toUriWithoutProtocol(value) }).toThrow()
+    expect(() => {
+      toUriWithoutProtocol(value)
+    }).toThrow()
   })
 })
-
 
 // toUriWithProtocol
 
-test("toUriWithProtocol: Non-string inputs throw TypeError", () => {
+test('toUriWithProtocol: Non-string inputs throw TypeError', () => {
   nonStringInputs.forEach(value => {
-    expect(() => { toUriWithProtocol(value) }).toThrow(TypeError)
+    expect(() => {
+      toUriWithProtocol(value)
+    }).toThrow(TypeError)
   })
 })
 
-test("toUriWithProtocol: Valid ORCIDs are converted to uri-without-protocol format", () => {
+test('toUriWithProtocol: Valid ORCIDs are converted to uri-without-protocol format', () => {
   const expected = 'https://orcid.org/0000-1111-2222-3336'
   validOrcidStrings.forEach(value => {
     expect(toUriWithProtocol(value)).toBe(expected)
   })
 })
 
-test("toUriWithProtocol: X is made uppercase", () => {
+test('toUriWithProtocol: X is made uppercase', () => {
   const expected = 'https://orcid.org/0001-2345-6789-012X'
   validOrcidStringsWithXAsChecksum.forEach(value => {
     expect(toUriWithProtocol(value)).toBe(expected)
   })
 })
 
-test("toUriWithProtocol: Invalid ORCIDs throw", () => {
+test('toUriWithProtocol: Invalid ORCIDs throw', () => {
   invalidOrcidStrings.forEach(value => {
-    expect(() => { toUriWithProtocol(value) }).toThrow()
+    expect(() => {
+      toUriWithProtocol(value)
+    }).toThrow()
   })
 })
 
+test('toUriWithProtocol: A flag provided as non-boolean and non-undefined will be coerced appropriately', () => {
+  // Truthy
+  const truthy = [true, {}, [], 42, '0', 'false', new Date(), -42, 12n, 3.14, -3.14, Infinity, -Infinity]
+  const falsy = [false, 0, -0, 0n, '', null, NaN] // But not undefined, as that's a valid input that asserts the secure flag
 
-test("toUriWithProtocol: A flag provided as non-boolean and non-undefined will throw TypeError", () => {
-  expect(() => { toUriWithProtocol('0000-0000-0000-0001', 'a string') }).toThrow(TypeError)
-  nonStringInputs.filter(value => { typeof value !== 'boolean' }).forEach(value => {
-    expect(() => { toUriWithProtocol('0000-0000-0000-0001', value) }).toThrow(TypeError)
-  })
+  truthy.forEach(x => expect(toUriWithProtocol('0000-0000-0000-0001', x)).toBe('https://orcid.org/0000-0000-0000-0001'))
+  falsy.forEach(x => expect(toUriWithProtocol('0000-0000-0000-0001', x)).toBe('http://orcid.org/0000-0000-0000-0001'))
 })
 
-test("toUriWithProtocol: Omitting the flag defaults to https and not http", () => {
+test('toUriWithProtocol: Omitting the flag defaults to https and not http', () => {
   expect(toUriWithProtocol('0000-0000-0000-0001')).toBe('https://orcid.org/0000-0000-0000-0001')
 })
 
-test("toUriWithProtocol: Setting the flag true forces https", () => {
+test('toUriWithProtocol: Setting the flag true forces https', () => {
   expect(toUriWithProtocol('0000-0000-0000-0001', true)).toBe('https://orcid.org/0000-0000-0000-0001')
 })
 
-test("toUriWithProtocol: Setting the flag false forces http", () => {
+test('toUriWithProtocol: Setting the flag false forces http', () => {
   expect(toUriWithProtocol('0000-0000-0000-0001', false)).toBe('http://orcid.org/0000-0000-0000-0001')
 })
 
-test("toUriWithProtocol: Flag can be used to override input protocol", () => {
+test('toUriWithProtocol: Flag can be used to override input protocol', () => {
   expect(toUriWithProtocol('http://orcid.org/0001-2345-6789-012X', true)).toBe('https://orcid.org/0001-2345-6789-012X')
   expect(toUriWithProtocol('https://orcid.org/0001-2345-6789-012X', false)).toBe('http://orcid.org/0001-2345-6789-012X')
 })
 
-test("toUriWithProtocol: Omitting the flag will upgrade the input protocol to https", () => {
+test('toUriWithProtocol: Omitting the flag will upgrade the input protocol to https', () => {
   expect(toUriWithProtocol('http://orcid.org/0001-2345-6789-012X')).toBe('https://orcid.org/0001-2345-6789-012X')
 })
 
-
 // isValid
 
-test("isValid: Non-string input throws TypeError", () => {
+test('isValid: Non-string input throws TypeError', () => {
   nonStringInputs.forEach(value => {
-    expect(() => { isValid(value) }).toThrow(TypeError)
+    expect(() => {
+      isValid(value)
+    }).toThrow(TypeError)
   })
 })
 
-test("isValid: Known-good ORCIDs are valid", () => {
-  ['0000-0000-0000-0001', '0001-2345-6789-012X', '0000-1111-2222-3336', '9999-9999-9999-9994'].forEach(value => {
+test('isValid: Known-good ORCIDs are valid', () => {
+  ;['0000-0000-0000-0001', '0001-2345-6789-012X', '0000-1111-2222-3336', '9999-9999-9999-9994'].forEach(value => {
     expect(isValid(value)).toBe(true)
   })
 })
 
-test("isValid: Known-bad ORCIDs are not valid", () => {
-  ['0000-0000-0000-0003', '0001-2345-6789-0122', '0000-1111-2222-3331', '9999-9999-9999-9990'].forEach(value => {
+test('isValid: Known-bad ORCIDs are not valid', () => {
+  ;['0000-0000-0000-0003', '0001-2345-6789-0122', '0000-1111-2222-3331', '9999-9999-9999-9990'].forEach(value => {
     expect(isValid(value)).toBe(false)
   })
-
 })
 
-test("isValid: Any accepted format can be validated", () => {
+test('isValid: Any accepted format can be validated', () => {
   validOrcidStrings.forEach(value => {
     expect(isValid(value)).toBe(true)
   })
 })
 
-test("isValid: Strings that are not an ORCID are not valid", () => {
+test('isValid: Strings that are not an ORCID are not valid', () => {
   invalidOrcidStrings.forEach(value => {
     expect(isValid(value)).toBe(false)
   })
 })
 
-test("isValid: Order of prefices: protocol must come first", () => {
+test('isValid: Order of prefices: protocol must come first', () => {
   expect(isValid('orcid.org/https://0000-1111-2222-3336')).toBe(false)
   expect(isValid('https://orcid.org/0000-1111-2222-3336')).toBe(true)
 })
 
-test("isValid: ORCID validity is not affected by letter case", () => {
+test('isValid: ORCID validity is not affected by letter case', () => {
   validOrcidStrings.forEach(value => {
     expect(isValid(value.toUpperCase())).toBe(isValid(value.toLowerCase()))
   })
@@ -257,24 +289,28 @@ test("isValid: ORCID validity is not affected by letter case", () => {
   })
 })
 
-
 // validate
 
-test("validate: Non-string input throws TypeError", () => {
+test('validate: Non-string input throws TypeError', () => {
   nonStringInputs.forEach(value => {
-    expect(() => { validate(value) }).toThrow(TypeError)
+    expect(() => {
+      validate(value)
+    }).toThrow(TypeError)
   })
 })
 
-test("validate: Known-good ORCIDs pass through without throwing", () => {
-  ['0000-0000-0000-0001', '0001-2345-6789-012X', '0000-1111-2222-3336', '9999-9999-9999-9994'].forEach(value => {
-    expect(() => { validate(value) }).not.toThrow()
+test('validate: Known-good ORCIDs pass through without throwing', () => {
+  ;['0000-0000-0000-0001', '0001-2345-6789-012X', '0000-1111-2222-3336', '9999-9999-9999-9994'].forEach(value => {
+    expect(() => {
+      validate(value)
+    }).not.toThrow()
   })
 })
 
-test("validate: Known-bad ORCIDs throw Error", () => {
-  ['0000-0000-0000-0003', '0001-2345-6789-0122', '0000-1111-2222-3331', '9999-9999-9999-9990'].forEach(value => {
-    expect(() => { validate(value) }).toThrow(Error)
+test('validate: Known-bad ORCIDs throw Error', () => {
+  ;['0000-0000-0000-0003', '0001-2345-6789-0122', '0000-1111-2222-3331', '9999-9999-9999-9990'].forEach(value => {
+    expect(() => {
+      validate(value)
+    }).toThrow(Error)
   })
-
 })

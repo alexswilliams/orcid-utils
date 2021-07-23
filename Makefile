@@ -1,6 +1,6 @@
 BUILD_DEPS = Makefile package-lock.json package.json
 
-.PHONY: all test clean
+.PHONY: all test clean lint
 .DEFAULT: all
 
 all: lib/orcid.min.js test $(BUILD_DEPS)
@@ -16,3 +16,8 @@ test: lib/orcid.min.js $(BUILD_DEPS)
 
 clean:
 	rm -f lib/*.js
+	rm -f lib/*.map
+
+lint:
+	npm run lint
+

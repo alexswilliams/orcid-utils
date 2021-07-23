@@ -1,12 +1,13 @@
 {
   "name": "orcid-utils",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Validates and formats ORCID numbers",
   "main": "lib/orcid.min.js",
   "scripts": {
     "compile": "cp src/orcid.js lib/orcid.js",
-    "minify": "google-closure-compiler -O SIMPLE --js=lib/orcid.js --js_output_file=lib/orcid.min.js --language_out=ECMASCRIPT_2016 --create_source_map=lib/orcid.min.js.map",
-    "test": "jest"
+    "minify": "esbuild lib/orcid.js --minify --sourcemap --format=cjs --outfile=lib/orcid.min.js --target=chrome90,edge91,firefox89,ios14.0,safari14,node12",
+    "test": "jest",
+    "lint": "eslint --report-unused-disable-directives src/*.js test/*.js"
   },
   "repository": {
     "type": "git",
@@ -14,16 +15,24 @@
   },
   "keywords": [
     "orcid",
+    "uk",
+    "academic",
     "identifier",
     "utils",
     "formatter",
+    "checker",
     "validator"
   ],
   "author": "Alex Williams <lexw@live.co.uk> (https://github.com/alexswilliams)",
   "license": "MIT",
   "bugs": "https://github.com/alexswilliams/orcid-utils/issues",
   "devDependencies": {
-    "google-closure-compiler": "^20210601.0.0",
-    "jest": "^27.0.1"
+    "@types/jest": "^26.0.24",
+    "esbuild": "^0.12.15",
+    "eslint": "^7.31.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "jest": "^27.0.1",
+    "prettier": "^2.3.2"
   }
 }

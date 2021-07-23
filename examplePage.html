@@ -1,46 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>ORCID Example</title>
-    <script src="lib/orcid.min.js"></script>
-  </head>
-  <body>
-    <input title="Enter your ORCID Number" type="text" id="orcidTextInput">
-    <input type="button" value="Validate" onClick="validateAndLog();">
 
-    <script>
-      var validateAndLog = function validateAndLog() {
-        var orcidNumber = document.getElementById('orcidTextInput').value;
+<head>
+  <meta charset="UTF-8">
+  <title>ORCID Example</title>
+  <script src="lib/orcid.min.js"></script>
+</head>
 
-        if (ORCID.isValid(orcidNumber)) {
+<body>
+  <input title="Enter your ORCID Number" type="text" id="orcidTextInput">
+  <input type="button" value="Validate" onClick="validateAndLog();">
 
-          console.log(ORCID.toDashFormat(orcidNumber));
-          // 0000-0000-0000-0001
+  <script>
+    var validateAndLog = function validateAndLog() {
+      var orcidNumber = document.getElementById('orcidTextInput').value;
 
-          console.log(ORCID.toNoDashFormat(orcidNumber));
-          // 0000000000000001
+      if (ORCID.isValid(orcidNumber)) {
 
-          console.log(ORCID.toUriWithoutProtocol(orcidNumber));
-          // orcid.org/0000-0000-0000-0001
+        console.log(ORCID.toDashFormat(orcidNumber));
+        // 0000-0000-0000-0001
 
-          console.log(ORCID.toUriWithProtocol(orcidNumber));
-          // https://orcid.org/0000-0000-0000-0001
+        console.log(ORCID.toNoDashFormat(orcidNumber));
+        // 0000000000000001
 
-          // toUriWithProtocol also takes a boolean parameter that
-          // specifies whether the URI should use https or not.
+        console.log(ORCID.toUriWithoutProtocol(orcidNumber));
+        // orcid.org/0000-0000-0000-0001
 
-          console.log(ORCID.toUriWithProtocol(orcidNumber, true));
-          // https://orcid.org/0000-0000-0000-0001
-          console.log(ORCID.toUriWithProtocol(orcidNumber, false));
-          // http://orcid.org/0000-0000-0000-0001
+        console.log(ORCID.toUriWithProtocol(orcidNumber));
+        // https://orcid.org/0000-0000-0000-0001
 
-        } else {
-          console.log('Not Valid');
-        }
+        // toUriWithProtocol also takes a boolean parameter that
+        // specifies whether the URI should use https or not.
 
-      };
-    </script>
+        console.log(ORCID.toUriWithProtocol(orcidNumber, true));
+        // https://orcid.org/0000-0000-0000-0001
+        console.log(ORCID.toUriWithProtocol(orcidNumber, false));
+        // http://orcid.org/0000-0000-0000-0001
 
-  </body>
+      } else {
+        console.log('Not Valid');
+      }
+
+    };
+  </script>
+
+</body>
+
 </html>

@@ -29,12 +29,14 @@ if (ORCID.isValid(orcidNumber)) {
     console.log(ORCID.toNoDashFormat(orcidNumber));
     // 0000000000000001
     
+    
     console.log(ORCID.toUriWithoutProtocol(orcidNumber));
     // orcid.org/0000-0000-0000-0001
     
     console.log(ORCID.toUriWithProtocol(orcidNumber));
     // https://orcid.org/0000-0000-0000-0001
     
+
     // toUriWithProtocol also takes a boolean parameter that
     // specifies whether the URI should use https or not.
     
@@ -42,6 +44,14 @@ if (ORCID.isValid(orcidNumber)) {
     // https://orcid.org/0000-0000-0000-0001    
     console.log(ORCID.toUriWithProtocol(orcidNumber, false));
     // http://orcid.org/0000-0000-0000-0001
+
+
+    // Validation can also be done as a side effect:
+
+    ORCID.validate(orcidNumber)
+    // passes silently
+    ORCID.validate('xxxxx')
+    // throws
 
 }
 ```

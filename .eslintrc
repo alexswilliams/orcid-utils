@@ -1,0 +1,27 @@
+{
+  "root": true,
+  "env": {
+    "node": true,
+    "browser": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2020
+  },
+  "ignorePatterns": ["lib"],
+  "plugins": ["prettier"],
+  "extends": ["eslint:recommended", "plugin:prettier/recommended"],
+  "rules": {
+    "object-shorthand": "warn",
+    "prefer-destructuring": "warn",
+    "prefer-const": "error",
+    "no-duplicate-imports": "error"
+  },
+  "overrides": [
+    {
+      "files": ["**/*.test.js"],
+      "env": {
+        "jest": true
+      }
+    }
+  ]
+}

@@ -5,38 +5,40 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x]
+        node-version: [12.x, 14.x, 16.x]
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - name: Install dependencies
-      run: npm ci
-    
-    - name: Rebuild assets
-      run: make -B clean lib/orcid.min.js
-    
-    - name: Run tests
-      run: make test
-    
-    # Don't allow the check to pass if the minified js has changed
-    # compared to what's committed - indicated manual remediation
-    # required, or possibly a new npm release.
-    - name: Ensure assets are deterministic and have no changes
-      run: |
-        [ $(git diff --name-only lib/orcid.min.js | wc -l) -eq 0 ]
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint source
+        run: make lint
+
+      - name: Rebuild assets
+        run: make -B clean lib/orcid.min.js
+
+      - name: Run tests
+        run: make test
+
+      # Don't allow the check to pass if the minified js has changed
+      # compared to what's committed - indicates manual remediation
+      # required, and possibly a new npm release.
+      - name: Ensure assets are deterministic and have no changes
+        run: |
+          [ $(git diff --name-only lib/orcid.min.js | wc -l) -eq 0 ]
