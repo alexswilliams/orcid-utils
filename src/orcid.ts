@@ -5,7 +5,7 @@
  * @param {string} input String to test format of
  * @returns {boolean}
  */
-function inAcceptedFormat(input: string): boolean {
+export function inAcceptedFormat(input: string): boolean {
   if (typeof input !== 'string') throw TypeError('Input must be string')
   return /^((https?:\/\/)?orcid\.org\/)?([0-9]{4}-?){3}[0-9]{3}[0-9X]$/i.test(input)
 }
@@ -15,7 +15,7 @@ function inAcceptedFormat(input: string): boolean {
  * @param {string} input Any valid ORCID
  * @returns {string}
  */
-function toDashFormat(input: string): string {
+export function toDashFormat(input: string): string {
   const noDash = toNoDashFormat(input)
   return [0, 4, 8, 12].map(it => noDash.slice(it, it + 4)).join('-')
 }
@@ -25,7 +25,7 @@ function toDashFormat(input: string): string {
  * @param {string} input Any valid ORCID
  * @returns {string}
  */
-function toNoDashFormatWithoutValidation(input: string): string {
+export function toNoDashFormatWithoutValidation(input: string): string {
   return input.replace(/-/g, '').slice(-16).toUpperCase()
 }
 
@@ -34,7 +34,7 @@ function toNoDashFormatWithoutValidation(input: string): string {
  * @param {string} input Any valid ORCID
  * @returns {string}
  */
-function toNoDashFormat(input: string): string {
+export function toNoDashFormat(input: string): string {
   validate(input)
   return toNoDashFormatWithoutValidation(input)
 }
@@ -45,7 +45,7 @@ function toNoDashFormat(input: string): string {
  * @param {boolean=} secure true (default): https, false: http
  * @returns {string}
  */
-function toUriWithProtocol(input: string, secure?: boolean): string {
+export function toUriWithProtocol(input: string, secure?: boolean): string {
   return (secure === undefined || !!secure ? 'https' : 'http') + '://' + toUriWithoutProtocol(input)
 }
 
@@ -54,7 +54,7 @@ function toUriWithProtocol(input: string, secure?: boolean): string {
  * @param {string} input Any valid ORCID
  * @returns {string}
  */
-function toUriWithoutProtocol(input: string): string {
+export function toUriWithoutProtocol(input: string): string {
   return 'orcid.org/' + toDashFormat(input)
 }
 
@@ -63,7 +63,7 @@ function toUriWithoutProtocol(input: string): string {
  * @param {string} input Any string to test
  * @returns {boolean}
  */
-function isValid(input: string): boolean {
+export function isValid(input: string): boolean {
   if (!inAcceptedFormat(input)) return false
   const inputNoDash = toNoDashFormatWithoutValidation(input)
 
@@ -80,11 +80,11 @@ function isValid(input: string): boolean {
  * @param {string} input
  * @returns {void}
  */
-function validate(input: string): void {
+export function validate(input: string): void {
   if (!isValid(input)) throw Error('Invalid ORCID')
 }
 
-const ORCID = {
+export const ORCID = {
   isValid,
   validate,
   inAcceptedFormat,
@@ -93,5 +93,5 @@ const ORCID = {
   toUriWithProtocol,
   toUriWithoutProtocol,
 }
-if (typeof exports !== 'undefined') Object.assign(exports, ORCID)
-if (typeof window !== 'undefined') Object.assign(window, { ORCID })
+// if (typeof exports !== 'undefined') Object.assign(exports, ORCID)
+// if (typeof window !== 'undefined') Object.assign(window, { ORCID })

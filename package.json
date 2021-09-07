@@ -3,11 +3,12 @@
   "version": "1.0.6",
   "description": "Validates and formats ORCID numbers",
   "main": "lib/orcid.min.js",
+  "types": "lib/orcid.d.ts",
   "scripts": {
-    "build": "npx tsc src/orcid.ts --declaration --declarationMap --outDir lib",
+    "build": "tsc src/orcid.ts --declaration --declarationMap --outDir lib",
     "minify": "esbuild src/orcid.ts --minify --sourcemap --format=cjs --outfile=lib/orcid.min.js --target=chrome90,edge91,firefox89,ios14.0,safari14,node12",
     "test": "jest",
-    "lint": "eslint --report-unused-disable-directives src/*.ts test/*.js"
+    "lint": "eslint --report-unused-disable-directives src/*.ts test/*.ts"
   },
   "repository": {
     "type": "git",
@@ -36,6 +37,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^27.0.6",
     "prettier": "^2.3.2",
+    "ts-jest": "^27.0.5",
     "ts-node": "^10.1.0",
     "typescript": "^4.3.5"
   }
