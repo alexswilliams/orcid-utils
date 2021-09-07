@@ -1,18 +1,16 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 'use strict'
 
-const {
+import {
   toDashFormat,
   toNoDashFormat,
   toUriWithoutProtocol,
   toUriWithProtocol,
   isValid,
   validate,
-} = require('../lib/orcid.min.js')
+} from '../lib/orcid.js'
 
 const nonStringInputs = [
   10,
@@ -78,22 +76,12 @@ const validOrcidStringsWithXAsChecksum = [
   'http://orcid.org/000123456789012X',
 ]
 
-test('methods are exported directly on the module', () => {
-  typeof require('../lib/orcid.min.js').inAcceptedFormat === 'function'
-  typeof require('../lib/orcid.min.js').isValid === 'function'
-  typeof require('../lib/orcid.min.js').toDashFormat === 'function'
-  typeof require('../lib/orcid.min.js').toNoDashFormat === 'function'
-  typeof require('../lib/orcid.min.js').toUriWithProtocol === 'function'
-  typeof require('../lib/orcid.min.js').toUriWithoutProtocol === 'function'
-  typeof require('../lib/orcid.min.js').validate === 'function'
-})
-
 // toDashFormat
 
 test('toDashFormat: Non-string inputs throw TypeError', () => {
   nonStringInputs.forEach(value => {
     expect(() => {
-      toDashFormat(value)
+      toDashFormat(value as string)
     }).toThrow(TypeError)
   })
 })
@@ -125,7 +113,7 @@ test('toDashFormat: Invalid ORCIDs throw', () => {
 test('toNoDashFormat: Non-string inputs throw TypeError', () => {
   nonStringInputs.forEach(value => {
     expect(() => {
-      toNoDashFormat(value)
+      toNoDashFormat(value as string)
     }).toThrow(TypeError)
   })
 })
@@ -157,7 +145,7 @@ test('toNoDashFormat: Invalid ORCIDs throw', () => {
 test('toUriWithoutProtocol: Non-string inputs throw TypeError', () => {
   nonStringInputs.forEach(value => {
     expect(() => {
-      toUriWithoutProtocol(value)
+      toUriWithoutProtocol(value as string)
     }).toThrow(TypeError)
   })
 })
@@ -189,7 +177,7 @@ test('toUriWithoutProtocol: Invalid ORCIDs throw', () => {
 test('toUriWithProtocol: Non-string inputs throw TypeError', () => {
   nonStringInputs.forEach(value => {
     expect(() => {
-      toUriWithProtocol(value)
+      toUriWithProtocol(value as string)
     }).toThrow(TypeError)
   })
 })
@@ -221,8 +209,12 @@ test('toUriWithProtocol: A flag provided as non-boolean and non-undefined will b
   const truthy = [true, {}, [], 42, '0', 'false', new Date(), -42, 12n, 3.14, -3.14, Infinity, -Infinity]
   const falsy = [false, 0, -0, 0n, '', null, NaN] // But not undefined, as that's a valid input that asserts the secure flag
 
-  truthy.forEach(x => expect(toUriWithProtocol('0000-0000-0000-0001', x)).toBe('https://orcid.org/0000-0000-0000-0001'))
-  falsy.forEach(x => expect(toUriWithProtocol('0000-0000-0000-0001', x)).toBe('http://orcid.org/0000-0000-0000-0001'))
+  truthy.forEach(x =>
+    expect(toUriWithProtocol('0000-0000-0000-0001', x as boolean)).toBe('https://orcid.org/0000-0000-0000-0001')
+  )
+  falsy.forEach(x =>
+    expect(toUriWithProtocol('0000-0000-0000-0001', x as boolean)).toBe('http://orcid.org/0000-0000-0000-0001')
+  )
 })
 
 test('toUriWithProtocol: Omitting the flag defaults to https and not http', () => {
@@ -251,7 +243,7 @@ test('toUriWithProtocol: Omitting the flag will upgrade the input protocol to ht
 test('isValid: Non-string input throws TypeError', () => {
   nonStringInputs.forEach(value => {
     expect(() => {
-      isValid(value)
+      isValid(value as string)
     }).toThrow(TypeError)
   })
 })
@@ -299,7 +291,7 @@ test('isValid: ORCID validity is not affected by letter case', () => {
 test('validate: Non-string input throws TypeError', () => {
   nonStringInputs.forEach(value => {
     expect(() => {
-      validate(value)
+      validate(value as string)
     }).toThrow(TypeError)
   })
 })
