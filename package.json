@@ -8,7 +8,7 @@
     "build": "tsc src/orcid.ts --declaration --declarationMap --outDir lib",
     "minify": "esbuild src/orcid.ts --minify --sourcemap --format=cjs --outfile=lib/orcid.min.js --target=chrome90,edge91,firefox89,ios14.0,safari14,node12",
     "test": "jest",
-    "lint": "eslint --report-unused-disable-directives src/*.ts test/*.js"
+    "lint": "eslint --report-unused-disable-directives src/*.ts test/*.ts"
   },
   "repository": {
     "type": "git",
