@@ -1,6 +1,6 @@
 {
   "name": "orcid-utils",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Validates and formats ORCID numbers",
   "main": "lib/orcid.min.js",
   "types": "lib/orcid.d.ts",
