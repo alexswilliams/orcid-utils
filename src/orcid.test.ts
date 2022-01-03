@@ -52,8 +52,10 @@ const validOrcidStrings = [
   'orcid.org/0000111122223336',
   'https://orcid.org/0000-1111-2222-3336',
   'https://orcid.org/0000111122223336',
+  'HTTPS://ORCID.ORG/0000111122223336',
   'http://orcid.org/0000-1111-2222-3336',
   'http://orcid.org/0000111122223336',
+  'HTTP://ORCID.ORG/0000111122223336',
 ]
 
 const validOrcidStringsWithXAsChecksum = [
@@ -63,16 +65,22 @@ const validOrcidStringsWithXAsChecksum = [
   '000123456789012X',
   'orcid.org/0001-2345-6789-012x',
   'orcid.org/0001-2345-6789-012X',
+  'OrCiD.OrG/0001-2345-6789-012X',
   'orcid.org/000123456789012x',
   'orcid.org/000123456789012X',
+  'OrCiD.OrG/000123456789012X',
   'https://orcid.org/0001-2345-6789-012x',
   'https://orcid.org/0001-2345-6789-012X',
+  'https://oRcId.oRg/0001-2345-6789-012X',
   'https://orcid.org/000123456789012x',
   'https://orcid.org/000123456789012X',
+  'https://oRcId.oRg/000123456789012X',
   'http://orcid.org/0001-2345-6789-012x',
   'http://orcid.org/0001-2345-6789-012X',
+  'http://OrCiD.oRg/0001-2345-6789-012X',
   'http://orcid.org/000123456789012x',
   'http://orcid.org/000123456789012X',
+  'http://OrCiD.orG/000123456789012X',
 ]
 
 // toDashFormat

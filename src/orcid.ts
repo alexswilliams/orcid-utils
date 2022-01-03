@@ -7,6 +7,15 @@
  */
 export function inAcceptedFormat(input: string): boolean {
   if (typeof input !== 'string') throw TypeError('Input must be string')
+
+  // in e.g. "https://orcid.org/0001-2345-6789-012X"
+  //  - the 's' in https is optional
+  //  - the https:// itself is optional
+  //  - the https://orcid.org/ portion is optional
+  //  - the dashes between letters are optional
+  //  - each of the 4 digit group must be 4 digits long
+  //  - the last digit can optionally be an X
+  //  - letter case is not consequential
   return /^((https?:\/\/)?orcid\.org\/)?([0-9]{4}-?){3}[0-9]{3}[0-9X]$/i.test(input)
 }
 
@@ -25,7 +34,7 @@ export function toDashFormat(input: string): string {
  * @param {string} input Any valid ORCID
  * @returns {string}
  */
-export function toNoDashFormatWithoutValidation(input: string): string {
+function toNoDashFormatWithoutValidation(input: string): string {
   return input.replace(/-/g, '').slice(-16).toUpperCase()
 }
 
@@ -93,5 +102,3 @@ export const ORCID = {
   toUriWithProtocol,
   toUriWithoutProtocol,
 }
-// if (typeof exports !== 'undefined') Object.assign(exports, ORCID)
-// if (typeof window !== 'undefined') Object.assign(window, { ORCID })

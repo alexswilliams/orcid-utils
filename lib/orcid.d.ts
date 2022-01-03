@@ -11,12 +11,6 @@ export declare function inAcceptedFormat(input: string): boolean;
  */
 export declare function toDashFormat(input: string): string;
 /**
- * Converts a valid ORCID (of any format) into the non-dashed format (without validating the input first - useful internally)
- * @param {string} input Any valid ORCID
- * @returns {string}
- */
-export declare function toNoDashFormatWithoutValidation(input: string): string;
-/**
  * Converts a valid ORCID (of any format) into the non-dashed format
  * @param {string} input Any valid ORCID
  * @returns {string}
