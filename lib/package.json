@@ -1,0 +1,28 @@
+{
+  "name": "orcid-utils",
+  "version": "1.1.3",
+  "description": "Validates and formats ORCID numbers",
+  "main": "orcid.min.js",
+  "types": "orcid.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/alexswilliams/orcid-utils.git"
+  },
+  "keywords": [
+    "orcid",
+    "uk",
+    "academic",
+    "identifier",
+    "utils",
+    "formatter",
+    "checker",
+    "validator"
+  ],
+  "author": "Alex Williams <lexw@live.co.uk> (https://github.com/alexswilliams)",
+  "license": "MIT",
+  "bugs": "https://github.com/alexswilliams/orcid-utils/issues",
+  "scripts": {
+    "prepublishOnly": "cp -f ../README.md ./",
+    "postpublish": "rm -f README.md"
+  }
+}
