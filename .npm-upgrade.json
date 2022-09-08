@@ -1,0 +1,8 @@
+{
+  "ignore": {
+    "jest": {
+      "versions": "^29.0.0",
+      "reason": "ts-jest is currently incompatible with jest 29 and up"
+    }
+  }
+}
