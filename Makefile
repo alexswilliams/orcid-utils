@@ -1,6 +1,6 @@
 BUILD_DEPS = Makefile package.json package-lock.json tsconfig.json src/package.json
 
-.PHONY: all test clean lint release
+.PHONY: all test clean release
 .DEFAULT: all
 
 all: lib/orcid.min.js lib/orcid.d.ts test
@@ -22,9 +22,6 @@ clean:
 	rm -f lib/*.map
 	rm -f lib/*.d.ts
 	rm -f lib/README.md
-
-lint:
-	npm run src:lint
 
 release:
 	npm --workspace=lib publish

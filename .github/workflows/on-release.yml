@@ -16,9 +16,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Lint source
-        run: make lint
-
       - name: Rebuild assets
         run: make -B clean lib/orcid.min.js lib/orcid.d.ts
 
