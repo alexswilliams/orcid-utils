@@ -24,4 +24,4 @@ clean:
 	rm -f lib/README.md
 
 release:
-	npm --workspace=lib publish
+	npm --workspace=lib publish --provenance --access public
