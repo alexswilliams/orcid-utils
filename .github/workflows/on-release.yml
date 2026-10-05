@@ -1,4 +1,4 @@
-name: Publish Package to npmjs
+name: Publish Package to NPM
 on:
   release:
     types: [created]
@@ -11,16 +11,16 @@ jobs:
       attestations: write
     
     steps:
-      - uses: actions/checkout@v5.0.0
-      - uses: actions/setup-node@v5.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          node-version: "22.x"
+          node-version: "26.x"
           registry-url: "https://registry.npmjs.org"
       - name: Install dependencies
         run: npm ci
 
       - name: Rebuild assets
-        run: make -B clean lib/orcid.min.js lib/orcid.d.ts
+        run: make -B clean all
 
       - name: Run tests
         run: make test
@@ -34,7 +34,7 @@ jobs:
           [ $(git diff --name-only lib/orcid.d.ts | wc -l) -eq 0 ]
 
       - name: Generate artefact attestation
-        uses: actions/attest-build-provenance@v3.0.0
+        uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
         with:
           subject-path: 'lib/orcid.js'
         

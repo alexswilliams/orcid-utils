@@ -1,14 +1,18 @@
 # ORCID Utils
 
-
 ![Node.js CI](https://github.com/alexswilliams/orcid-utils/workflows/Node.js%20CI/badge.svg)
+
+> [!NOTE]
+> This project is complete.
+>
+> It is actively maintained, but no new features will be added. As it has no production dependencies, new versions will be few and far between.
 
 Library to manipulate [ORCID](https://orcid.org/) identifiers.
 Allows validation of identifiers based on their check-digit,
 and to format a provided identifier into a number of potentially
-useful formats. 
+useful formats.
 
-Designed to be used as either a `require`-able module, or as 
+Designed to be used as either a `require`-able module, or as
 a standalone object that can be imported into a normal HTML page.
 
 ## Node Installation
@@ -23,35 +27,35 @@ const orcidNumber = '0000-0000-0000-0001';
 
 if (ORCID.isValid(orcidNumber)) {
 
-    console.log(ORCID.toDashFormat(orcidNumber));
-    // 0000-0000-0000-0001
-    
-    console.log(ORCID.toNoDashFormat(orcidNumber));
-    // 0000000000000001
-    
-    
-    console.log(ORCID.toUriWithoutProtocol(orcidNumber));
-    // orcid.org/0000-0000-0000-0001
-    
-    console.log(ORCID.toUriWithProtocol(orcidNumber));
-    // https://orcid.org/0000-0000-0000-0001
-    
+  console.log(ORCID.toDashFormat(orcidNumber));
+  // 0000-0000-0000-0001
 
-    // toUriWithProtocol also takes a boolean parameter that
-    // specifies whether the URI should use https or not.
-    
-    console.log(ORCID.toUriWithProtocol(orcidNumber, true));
-    // https://orcid.org/0000-0000-0000-0001    
-    console.log(ORCID.toUriWithProtocol(orcidNumber, false));
-    // http://orcid.org/0000-0000-0000-0001
+  console.log(ORCID.toNoDashFormat(orcidNumber));
+  // 0000000000000001
 
 
-    // Validation can also be done as a side effect:
+  console.log(ORCID.toUriWithoutProtocol(orcidNumber));
+  // orcid.org/0000-0000-0000-0001
 
-    ORCID.validate(orcidNumber)
-    // passes silently
-    ORCID.validate('xxxxx')
-    // throws
+  console.log(ORCID.toUriWithProtocol(orcidNumber));
+  // https://orcid.org/0000-0000-0000-0001
+
+
+  // toUriWithProtocol also takes a boolean parameter that
+  // specifies whether the URI should use https or not.
+
+  console.log(ORCID.toUriWithProtocol(orcidNumber, true));
+  // https://orcid.org/0000-0000-0000-0001    
+  console.log(ORCID.toUriWithProtocol(orcidNumber, false));
+  // http://orcid.org/0000-0000-0000-0001
+
+
+  // Validation can also be done as a side effect:
+
+  ORCID.validate(orcidNumber)
+  // passes silently
+  ORCID.validate('xxxxx')
+  // throws
 
 }
 ```
@@ -66,30 +70,31 @@ to the `test` script.
 ## Example Browser Usage
 
 ```html
-<html>
+
+<html lang="en">
 <head>
-<script src="lib/orcid.min.js"></script>
+  <script src="lib/orcid.min.js"></script>
 </head>
 
 <body>
 <input type="text" id="orcidTextInput">
 <input type="button" onClick="validateAndLog();">
 
-    <script>
-      var validateAndLog = function validateAndLog() {
-        var orcidNumber = document.getElementById('orcidTextInput').value;
+<script>
+  const validateAndLog = function validateAndLog() {
+    const orcidNumber = document.getElementById('orcidTextInput').value;
 
-        if (ORCID.isValid(orcidNumber)) {
-          console.log(ORCID.toDashFormat(orcidNumber));
-          // 0000-0000-0000-0001
-          
-          // All the other examples from above work here too!
-        } else {
-          console.log('Not Valid');
-        }
+    if (ORCID.isValid(orcidNumber)) {
+      console.log(ORCID.toDashFormat(orcidNumber));
+      // 0000-0000-0000-0001
 
-      };
-    </script>
+      // All the other examples from above work here too!
+    } else {
+      console.log('Not Valid');
+    }
+
+  };
+</script>
 
 </body>
 </html>

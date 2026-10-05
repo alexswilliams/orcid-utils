@@ -3,7 +3,7 @@ BUILD_DEPS = Makefile package.json package-lock.json tsconfig.json src/package.j
 .PHONY: all test clean release
 .DEFAULT: all
 
-all: lib/orcid.min.js lib/orcid.d.ts test
+all: ci lib/orcid.js lib/orcid.min.js lib/orcid.d.ts test
 
 lib/README.md: README.md
 	cp README.md lib/
@@ -17,11 +17,16 @@ lib/orcid.min.js lib/orcid.min.js.map: src/orcid.ts $(BUILD_DEPS)
 test: lib/orcid.min.js src/**.test.* $(BUILD_DEPS)
 	npm run src:test
 
+ci:
+	npm ci
+
 clean:
+	rm -f lib/tsconfig.tsbuildinfo
 	rm -f lib/*.js
 	rm -f lib/*.map
 	rm -f lib/*.d.ts
 	rm -f lib/README.md
 
 release:
+	rm -f lib/tsconfig.tsbuildinfo
 	npm --workspace=lib publish --provenance --access public

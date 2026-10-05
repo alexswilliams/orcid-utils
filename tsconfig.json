@@ -1,5 +1,10 @@
 {
   "compilerOptions": {
+    "composite": true,
+    "types": ["node"],
+    "typeRoots": ["./node_modules/@types"],
+    "outDir": "./lib",
+    "rootDir": ".",
     "lib": ["ESNext", "DOM"],
     "module": "commonjs",
     "target": "es2020",
@@ -8,16 +13,17 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
 
     "allowUmdGlobalAccess": true,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "alwaysStrict": true,
     "verbatimModuleSyntax": false,
-    "incremental": true,
-    "inlineSourceMap": true,
-    "inlineSources": true,
-    "moduleResolution": "classic",
+    "inlineSourceMap": false,
+    "inlineSources": false,
+    "moduleResolution": "bundler",
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
@@ -27,8 +33,8 @@
     "noFallthroughCasesInSwitch": true,
     "strictNullChecks": true,
     "strictBindCallApply": true,
-    "strictPropertyInitialization": true,
-    "typeRoots": ["./node_modules/@types"]
+    "strictPropertyInitialization": true
   },
-  "exclude": ["node_modules", "lib", "test/*.js"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "lib", "**/*.test.ts", "./jest.config.ts"]
 }

@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 
-'use strict'
-
+import { expect, test } from 'vitest'
 import {
+  isValid,
   toDashFormat,
   toNoDashFormat,
   toUriWithoutProtocol,
   toUriWithProtocol,
-  isValid,
   validate,
 } from '../lib/orcid.js'
 
@@ -217,10 +216,10 @@ test('toUriWithProtocol: A flag provided as non-boolean and non-undefined will b
   const falsy = [false, 0, -0, 0n, '', null, NaN] // But not undefined, as that's a valid input that asserts the secure flag
 
   truthy.forEach(x =>
-    expect(toUriWithProtocol('0000-0000-0000-0001', x as boolean)).toBe('https://orcid.org/0000-0000-0000-0001')
+    expect(toUriWithProtocol('0000-0000-0000-0001', x as boolean)).toBe('https://orcid.org/0000-0000-0000-0001'),
   )
   falsy.forEach(x =>
-    expect(toUriWithProtocol('0000-0000-0000-0001', x as boolean)).toBe('http://orcid.org/0000-0000-0000-0001')
+    expect(toUriWithProtocol('0000-0000-0000-0001', x as boolean)).toBe('http://orcid.org/0000-0000-0000-0001'),
   )
 })
 

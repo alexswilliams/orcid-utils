@@ -85,7 +85,7 @@ export function isValid(input: string): boolean {
 }
 
 /**
- * A side-effect version of `isValid` - will throw Error if `isValid` would return false.
+ * A side effect version of `isValid` - will throw Error if `isValid` would return false.
  * @param {string} input
  * @returns {void}
  */
