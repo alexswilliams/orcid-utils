@@ -16,7 +16,7 @@
     "update:actions": "actions-up"
   },
   "devDependencies": {
-    "@types/node": "26.6.4",
+    "@types/node": "26.6.5",
     "actions-up": "1.21.0",
     "esbuild": "0.28.2",
     "npm-updater": "3.0.3",
